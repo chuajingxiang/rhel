@@ -1,0 +1,16 @@
+cp /etc/fstab /etc/fstab.bak
+umount /app
+umount /data
+pvcreate -y /dev/sdb
+pvcreate -y /dev/sdc
+vgcreate appvg /dev/sdb
+vgcreate datavg /dev/sdc
+lvcreate -L [sizetobeallocated] -n appvol1 appvg
+lvcreate -L [sizetobeallocated] -n datavol1 datavg
+mkfs.xfs /dev/appvg/appvol1
+mkfs.xfs /dev/datavg/datavol1
+mkdir /app
+mkdir /data
+mount /dev/appvg/appvol1 /app
+mount /dev/datavg/datavol1 /data
+df -h
