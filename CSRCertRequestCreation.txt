@@ -1,0 +1,29 @@
+Step 1: Create xxx.cnf file
+
+[req]
+distinguished_name = req_distinguished_name
+req_extensions = v3_req
+prompt = no
+
+
+[req_distinguished_name]
+C  =  COUNTRYCODE
+ST =  COUNTRYCODE
+L  =  COUNTRYCODE
+O  =  OUNAME
+OU =  OUNAME
+CN =  MAINDNSNAME
+
+
+[v3_req]
+subjectAltName = @alt_names
+
+
+[alt_names]
+DNS.1 = <<InsertDNSName>>
+DNS.2 = <<InsertDNSName2>>
+
+
+Step 2: Using CNF file from step 1, execute in bash to generate csr and private key
+
+openssl req -new -out xxx.csr -newkey rsa:2048 -nodes -sha256 -keyout xxx.key -config xxx.cnf

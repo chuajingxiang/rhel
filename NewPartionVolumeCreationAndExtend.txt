@@ -14,3 +14,13 @@ mkdir /data
 mount /dev/appvg/appvol1 /app
 mount /dev/datavg/datavol1 /data
 df -h
+
+
+
+yum -y install cloud-utils-growpart
+yum -y update cloud-utils-growpart
+
+growpart /dev/sda 3
+pvresize /dev/sda3
+
+lvextend -r -l +100%FREE /dev/mapper/rhel-root
